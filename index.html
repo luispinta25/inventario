@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Inventario Móvil - Ferrisoluciones</title>
+    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta name="theme-color" content="#1a1a1a">
+    <link rel="icon" href="https://i.ibb.co/8gLPXfjh/FERRISOLUCIONES-1.png">
+    <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
+</head>
+<body>
+    <!-- Pantalla de Login -->
+    <div id="loginScreen" class="screen">
+        <div class="login-container">
+            <div class="login-card">
+                <img src="https://i.ibb.co/8gLPXfjh/FERRISOLUCIONES-1.png" alt="Ferrisoluciones" class="login-logo">
+                <h2>Inventario Móvil</h2>
+                <form id="loginForm">
+                    <div class="input-group">
+                        <label>Correo Electrónico</label>
+                        <input type="email" id="loginEmail" required placeholder="correo@ejemplo.com">
+                    </div>
+                    <div class="input-group">
+                        <label>Contraseña</label>
+                        <input type="password" id="loginPassword" required placeholder="••••••••">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Iniciar Sesión</button>
+                    <div id="loginMessage" class="message"></div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pantalla Principal de Inventario -->
+    <div id="appScreen" class="screen hidden">
+        <header class="main-header">
+            <div class="header-content">
+                <img src="https://i.ibb.co/8gLPXfjh/FERRISOLUCIONES-1.png" alt="Logo" class="mini-logo">
+                <h1>Inventario</h1>
+                <button id="logoutBtn" class="btn-icon"><i class="fas fa-sign-out-alt"></i></button>
+            </div>
+            <div id="cacheProgress" class="cache-progress"></div>
+            <div class="search-container">
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="searchInput" placeholder="Buscar producto o código...">
+                    <button id="startScanBtn" class="btn-scan"><i class="fas fa-barcode"></i></button>
+                </div>
+            </div>
+            <!-- Div para el scanner de cámara -->
+            <div id="readerContainer" class="reader-container hidden">
+                <div id="reader"></div>
+                <button id="stopScanBtn" class="btn btn-secondary">Cerrar Cámara</button>
+            </div>
+        </header>
+
+        <main id="productList" class="product-list">
+            <!-- Los productos se cargarán aquí -->
+            <div class="loading-state">
+                <div class="spinner"></div>
+                <p>Cargando inventario...</p>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal de Edición -->
+    <div id="editModal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Editar Producto</h3>
+                <button type="button" class="close-modal"><i class="fas fa-times"></i></button>
+            </div>
+            <form id="editForm">
+                <input type="hidden" id="editProductId">
+                
+                <!-- Sección de Fotos (Ahora abren la cámara custom) -->
+                <div class="photos-section">
+                    <label>Fotos del Producto (Máscara Cuadrada)</label>
+                    <div class="photo-grid">
+                        <div class="photo-upload" onclick="openCamera(1)">
+                            <img id="preview1" src="" class="hidden">
+                            <div id="placeholder1" class="placeholder">
+                                <i class="fas fa-camera"></i>
+                                <span>Foto 1</span>
+                            </div>
+                        </div>
+                        <div class="photo-upload" onclick="openCamera(2)">
+                            <img id="preview2" src="" class="hidden">
+                            <div id="placeholder2" class="placeholder">
+                                <i class="fas fa-camera"></i>
+                                <span>Foto 2</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label>Código (No editable)</label>
+                    <input type="text" id="editCodigo" readonly class="readonly-input">
+                </div>
+                <div class="input-group">
+                    <label>Nombre del Producto</label>
+                    <input type="text" id="editNombre" required>
+                </div>
+                <div class="input-group">
+                    <label>Stock</label>
+                    <input type="number" step="0.001" id="editStock" required>
+                </div>
+                <div class="input-group">
+                    <label>Zona</label>
+                    <input type="number" id="editZona" required>
+                </div>
+                <div class="input-group">
+                    <label>Proveedor</label>
+                    <select id="editProveedor" required>
+                        <!-- Proveedores dinámicos -->
+                    </select>
+                </div>
+                
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-secondary close-modal">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Interfaz de Cámara Custom -->
+    <div id="cameraInterface" class="camera-overlay hidden">
+        <div class="camera-container">
+            <video id="videoPreview" autoplay playsinline muted></video>
+            <div class="camera-mask">
+                <div class="focus-square"></div>
+            </div>
+        </div>
+        <div class="camera-controls">
+            <button type="button" onclick="closeCamera()" class="cancel-camera-btn">CERRAR</button>
+            <div class="shutter-btn" onclick="takeSnapshot()"></div>
+            <div style="width: 60px;"></div> <!-- Espaciado -->
+        </div>
+    </div>
+
+    <script type="module" src="./main.js"></script>
+</body>
+</html>
