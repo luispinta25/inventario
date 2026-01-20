@@ -1,9 +1,9 @@
-const CACHE_NAME = 'feri-inv-v1';
+const CACHE_NAME = 'feri-inv-v2';
 const ASSETS = [
-  '/',
-  '/index.html',
-  '/main.js',
-  '/style.css',
+  './',
+  './index.html',
+  './main.js',
+  './style.css',
   'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css',
   'https://unpkg.com/html5-qrcode',
   'https://i.ibb.co/8gLPXfjh/FERRISOLUCIONES-1.png'

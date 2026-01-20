@@ -49,22 +49,28 @@ body {
     align-items: center;
     min-height: 100vh;
     padding: 20px;
+    background: #1a1a1a; /* Fallback */
     background: linear-gradient(135deg, #1a1a1a 0%, #333 100%);
+    width: 100%;
 }
 
 .login-card {
     background: white;
     width: 100%;
-    max-width: 400px;
+    max-width: 350px;
     padding: 30px;
     border-radius: var(--radius);
     text-align: center;
     box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    z-index: 10;
 }
 
 .login-logo {
-    height: 60px;
-    margin-bottom: 15px;
+    width: 200px;
+    height: auto;
+    max-height: 80px;
+    margin-bottom: 20px;
+    object-fit: contain;
 }
 
 .login-card h2 {
