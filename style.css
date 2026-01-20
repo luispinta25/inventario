@@ -309,6 +309,12 @@ body {
 }
 
 /* MODAL FULLSCREEN */
+body.modal-open {
+    overflow: hidden;
+    position: fixed;
+    width: 100%;
+}
+
 .modal {
     position: fixed;
     top: 0;
@@ -319,6 +325,7 @@ body {
     display: flex;
     flex-direction: column;
     z-index: 1000;
+    overflow: hidden;
 }
 
 .modal-content {
@@ -326,11 +333,11 @@ body {
     width: 100%;
     height: 100%;
     max-width: none;
-    border-radius: 0;
     padding: 20px;
     display: flex;
     flex-direction: column;
     overflow-y: auto;
+    -webkit-overflow-scrolling: touch; /* Suavidad en iOS */
     animation: slideInRight 0.3s ease-out;
 }
 

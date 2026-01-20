@@ -1,0 +1,21 @@
+{
+  "name": "FeriInventario",
+  "short_name": "FeriInv",
+  "description": "Gestión de Inventario Ferrisoluciones",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#D4A017",
+  "icons": [
+    {
+      "src": "https://i.ibb.co/8gLPXfjh/FERRISOLUCIONES-1.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "https://i.ibb.co/8gLPXfjh/FERRISOLUCIONES-1.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

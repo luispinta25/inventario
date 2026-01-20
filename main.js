@@ -362,6 +362,8 @@ window.openEditModal = async (id) => {
     resetPreview(1);
     resetPreview(2);
     
+    document.body.classList.add('modal-open'); // Bloquear scroll
+    
     try {
         // Consultamos datos frescos directamente de la DB para evitar trabajar sobre caché viejo
         const { data: p, error } = await supabase
@@ -559,6 +561,7 @@ async function subirImagen(blob, productId, index) {
 document.querySelectorAll('.close-modal').forEach(btn => {
     btn.addEventListener('click', () => {
         editModal.classList.add('hidden');
+        document.body.classList.remove('modal-open');
     });
 });
 
@@ -622,6 +625,9 @@ editForm.addEventListener('submit', async (e) => {
 
         if (error) throw error;
 
+        // Limpiar bloqueo de scroll
+        document.body.classList.remove('modal-open');
+
         // Actualizar el caché local para que no sea necesario recargar de la red
         if (appState.cache) {
             const index = appState.cache.findIndex(p => p.id === id);
@@ -651,3 +657,12 @@ editForm.addEventListener('submit', async (e) => {
 
 // Iniciar app
 init();
+
+// REGISTRO DE PWA SERVICE WORKER
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./sw.js')
+            .then(reg => console.log('✅ Service Worker registrado'))
+            .catch(err => console.error('❌ Error registrando SW', err));
+    });
+}
